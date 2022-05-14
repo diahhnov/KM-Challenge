@@ -1,0 +1,5 @@
+analytics
+analytics sesuatu yang bisa di expect atau diharapkan atau ditebak 
+
+crashlytics
+crash tidak bisa di expect, unexpected dan harus kita cari tau apa yang terjadi

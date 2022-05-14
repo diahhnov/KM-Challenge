@@ -1,0 +1,35 @@
+name: CD Progress
+
+on:
+  workflow_dispatch: # alllow jobs manual run
+  release:
+    types: [published]
+
+jobs:
+  send-to-telegram:
+  name: send file to telegram
+  runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v2
+
+     - name: Set up our JDK environment # setup JDK environment: mandatory as we need to build  android project
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
+
+    - name: instalasi modules
+      run: yarn
+
+    - name: make gradle executable
+      run: chmod +x ./android/gradle
+
+    - name: generate apk
+      run: |
+        cd android
+        ./gradlew assembleRelease
+        cd ..
+    #- name : send file as messages
+    #  run : |
+    #     cd android/app/build/outputs/apk/release/
+    #     curl -X POST -H 'Content-Type: multipart/form-data' -F "chat_id=${{secrets.TG_CHAT_ID}}" -F document=@app-release.apk ${{secrets.TG_BOT_TOKEN}}/sendDocument

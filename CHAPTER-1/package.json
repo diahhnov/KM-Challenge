@@ -1,0 +1,17 @@
+{
+	"name": "testing-challenge-1",
+	"version": "1.0.0",
+	"description": "untuk melakukan testing pada challenge pertama",
+	"main": "Challenge-1.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"keywords": [
+		"testing"
+	],
+	"author": "diah",
+	"license": "ISC",
+	"devDependencies": {
+		"jest": "^27.5.1"
+	}
+}

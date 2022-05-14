@@ -1,0 +1,5 @@
+1. memisahkan regex
+2. clean coodingan
+3. santai
+4. relax
+5. aware time out

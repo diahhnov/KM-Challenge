@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "659142653539",
+    "project_id": "ilocation-a2983",
+    "storage_bucket": "ilocation-a2983.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659142653539:android:fb0c98eb56ed7027b72a56",
+        "android_client_info": {
+          "package_name": "com.ilocation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659142653539-hvvjshai5a95479dknvk1oc0pn1a4o1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ilocation",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "659142653539-pm3v8k6fbo1i3da7oet8i3sqhp3i7v45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNau0SQ1gkR9V-AIp4ecLYkWahjycbTUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659142653539-pm3v8k6fbo1i3da7oet8i3sqhp3i7v45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

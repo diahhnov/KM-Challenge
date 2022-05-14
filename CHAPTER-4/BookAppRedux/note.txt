@@ -1,0 +1,16 @@
+redux-persist:
+membantu aplikasi untuk membuat storege permanent(persisten atau kekal atau kukuh) tapi selama aplikasi tidak di clear data/case atau uninstall. 
+asyc storage: berbentuk promise, secara detail penyimpanannya
+redux-persist: kita bisa atur data data mana yang mau menjadi permanent, whitelist(permnanet) atau blacklist(tidak permanent)
+cara penggunaanya
+asycstorage, install
+yarn add redux-persist
+
+buka store
+jika ingin menyimpan di hp asycstorage
+import AsycStorage from '@react-native....'
+import {persistStore, persistReducer} from 'redux-persist'
+
+const config = {key: 'apapun', storege:AsycStorage }
+const persistedReducer = persistReducer(config, allReducers)
+ 
