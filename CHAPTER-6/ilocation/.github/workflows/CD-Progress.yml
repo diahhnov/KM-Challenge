@@ -1,35 +1,67 @@
+# name: CD Progress
+
+# on:
+#   workflow_dispatch: # alllow jobs manual run
+#   release:
+#     types: [published]
+
+# jobs:
+#   send-to-telegram:
+#   name: send file to telegram
+#   runs-on: ubuntu-latest
+
+#   steps:
+#     - uses: actions/checkout@v2
+
+#      - name: Set up our JDK environment # setup JDK environment: mandatory as we need to build  android project
+#         uses: actions/setup-java@v1.4.3
+#         with:
+#           java-version: 1.8
+
+#     - name: instalasi modules
+#       run: yarn
+
+#     - name: make gradle executable
+#       run: chmod +x ./android/gradle
+
+#     - name: generate apk
+#       run: |
+#         cd android
+#         ./gradlew assembleRelease
+#         cd ..
+#     - name: send file as message
+#         run: |
+#           cd android/app/build/outputs/apk/release/
+#           curl -X POST -H 'Content-Type: multipart/form-data' -F text='Your Application Is Published!' -F chat_id=${{secrets.TG_CHAT_ID}} https://api.telegram.org/bot${{secrets.TG_CHAT_ID}}/sendMessage
+#           curl -X POST -H 'Content-Type: multipart/form-data' -F caption=App -F chat_id=${{secrets.TG_CHAT_ID}} -F document=@app-release.apk https://api.telegram.org/bot${{secrets.TG_BOT_TOKEN}}/sendDocument
+
 name: CD Progress
-
 on:
-  workflow_dispatch: # alllow jobs manual run
-  release:
-    types: [published]
-
+  push:
+    branches: [master]
 jobs:
-  send-to-telegram:
-  name: send file to telegram
-  runs-on: ubuntu-latest
+  build-and-send-to-telegram:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-  steps:
-    - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: yarn install
 
-     - name: Set up our JDK environment # setup JDK environment: mandatory as we need to build  android project
-        uses: actions/setup-java@v1.4.3
+      - name: Execute Gradle
+        run: cd android && chmod +x ./gradlew
+
+      - name: Build Android Release
+        run: cd android && ./gradlew assembleRelease
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
         with:
-          java-version: 1.8
+          name: release
+          path: android/app/build/outputs/apk/release/app-release.apk
 
-    - name: instalasi modules
-      run: yarn
-
-    - name: make gradle executable
-      run: chmod +x ./android/gradle
-
-    - name: generate apk
-      run: |
-        cd android
-        ./gradlew assembleRelease
-        cd ..
-    #- name : send file as messages
-    #  run : |
-    #     cd android/app/build/outputs/apk/release/
-    #     curl -X POST -H 'Content-Type: multipart/form-data' -F "chat_id=${{secrets.TG_CHAT_ID}}" -F document=@app-release.apk ${{secrets.TG_BOT_TOKEN}}/sendDocument
+      - name: Upload to Telegram Bot
+        run: |
+          cd android/app/build/outputs/apk/release/
+          curl -X POST -H 'Content-Type: multipart/form-data' -F "chat_id=${{secrets.TG_CHAT_ID}}" -F text='App is Released!' ${{secrets.TG_BOT_TOKEN}}/sendMessage
+          curl -X POST -H 'Content-Type: multipart/form-data' -F "chat_id=${{secrets.TG_CHAT_ID}}" -F document=@app-release.apk ${{secrets.TG_BOT_TOKEN}}/sendDocument

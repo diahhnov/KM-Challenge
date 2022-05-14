@@ -1,37 +1,65 @@
-name: CI Progress
+# name: Deploy to telegram
 
+# on:
+#   workflow_dispatch: # alllow jobs manual run
+#   push:
+#     branches: [master]
+#   pull_request:
+#     branches: [master]
+
+# jobs:
+#   testing:
+#     # the type of runner that the job will run on
+#     runs-on: ubuntu-latest
+
+#     # steps represent a sequence of tasks that will be excuted as part of the job
+#     steps:
+#       # check-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v2
+#       # node, android, java
+#       - uses: docker://circleci/android:api-29-node
+
+#       - name: instalasi modules
+#         run: yarn
+
+#       - name: unit testing
+#         run: yarn test
+
+#   check-linter:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: instalasi modules
+#         run: yarn
+
+#       - name: cleaning codes
+#         run: yarn lint
+
+name: CI Progress
 on:
-  workflow_dispatch: #manual run
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
-
 jobs:
-  testing:
-    # runner job will run on
-    runs-on: ubuntu-latest
-
-    # merepresentasikan apapun yang ada dalam step
-    steps:
-      # cek repositori
-      - uses: actions/checkout@v2
-
-      - name: instalation modules
-        run: yarn
-
-      - name: Unit Testing
-        run: yarn test -u
-
   check-linter:
     runs-on: ubuntu-latest
-
     steps:
-      # cek repositori
       - uses: actions/checkout@v2
 
-      - name: instalation modules
-        run: yarn
+      - name: Install Dependencies
+        run: yarn install
 
-      - name: cleaning code
+      - name: Test Linter
         run: yarn lint
+
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn lint
+
+      - name: Testing Component
+        run: yarn test
